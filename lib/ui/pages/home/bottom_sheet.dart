@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gomining_kherel/ui/overlays/receive/receive.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/widgets/brand_buttons/brand_buttons.dart';
 
@@ -26,7 +27,9 @@ class BottomBar extends StatelessWidget {
         children: [
           Expanded(
             child: BrandButtons.iconButton(
-              onTap: () {},
+              onTap: () {
+                ReceiveBottomSheet.show(context);
+              },
               icon: Icons.arrow_downward,
               text: 'Receive',
             ),
