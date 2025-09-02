@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:gomining_kherel/logic/api/api.dart';
+import 'package:gomining_kherel/logic/api/block_stream.dart';
 import 'package:gomining_kherel/logic/cubits/base/dependent_cubit.dart';
 import 'package:gomining_kherel/logic/cubits/wallet/wallet_cubit.dart';
 import 'package:gomining_kherel/logic/models/balance.dart';

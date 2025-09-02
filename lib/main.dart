@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       child: BrandSystemOverlay(
         isFontBlack: false,
         child: MaterialApp(
+          theme: ThemeData(scaffoldBackgroundColor: Colors.transparent),
           navigatorKey: getIt<NavigationService>().navigatorKey,
           title: 'Gomining Wallet',
           home: const App(),

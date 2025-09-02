@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomining_kherel/logic/cubits/wallet/wallet_cubit.dart';
-import 'package:gomining_kherel/ui/pages/home.dart';
-import 'package:gomining_kherel/ui/pages/splash.dart';
+import 'package:gomining_kherel/ui/pages/home/home.dart';
+import 'package:gomining_kherel/ui/pages/splash/splash.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
