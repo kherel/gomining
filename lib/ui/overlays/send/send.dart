@@ -15,7 +15,7 @@ class SendBottomSheet extends StatefulWidget {
   const SendBottomSheet({super.key});
 
   static Future<SendBottomSheetResult?> show(BuildContext context) async {
-    return showModalBottomSheet<SendBottomSheetResult>(
+    return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       isDismissible: true,
