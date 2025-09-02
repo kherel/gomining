@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomining_kherel/config/translations.g.dart';
 import 'package:gomining_kherel/logic/cubits/wallet/wallet_cubit.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/theme/brand_typo.dart';
@@ -33,27 +34,32 @@ class ReceiveBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final walletState =
         context.read<WalletCubit>().state as WalletAuthenticated;
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 32),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: BrandColors.dark,
-      ),
+
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 24),
+          Text(
+            t.receive.title,
+            style: ThemeTypo.heading2Bold.copyWith(color: BrandColors.white),
+          ),
+          const SizedBox(height: 32),
+
+          // QR Code section
           Center(
             child: Text(
-              'Scan QR code to receive',
+              t.receive.scan_qr,
               textAlign: TextAlign.center,
-              style: ThemeTypo.tinyRegular,
+              style: ThemeTypo.smallRegularStrong.copyWith(
+                color: BrandColors.white,
+              ),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Center(
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: BrandColors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -61,23 +67,36 @@ class ReceiveBottomSheet extends StatelessWidget {
               child: QrImageView(
                 data: walletState.address,
                 version: QrVersions.auto,
-                size: MediaQuery.of(context).size.width * 0.7,
+                size: MediaQuery.of(context).size.width * 0.6,
               ),
             ),
           ),
-          SizedBox(height: 47),
+          const SizedBox(height: 32),
+
+          // Address section
           Text(
-            'Address:',
-            textAlign: TextAlign.center,
-            style: ThemeTypo.tinyRegular,
+            t.receive.wallet_address,
+            style: ThemeTypo.smallRegularStrong.copyWith(
+              color: BrandColors.white,
+            ),
           ),
-          SizedBox(height: 8),
-          Text(
-            walletState.address,
-            textAlign: TextAlign.center,
-            style: ThemeTypo.tinyRegular,
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: BrandColors.grey,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              walletState.address,
+              style: ThemeTypo.smallRegularStrong.copyWith(
+                color: BrandColors.white,
+              ),
+            ),
           ),
-          Spacer(),
+          const Spacer(),
+
           BrandButtons.iconButton(
             onTap: () {
               Clipboard.setData(ClipboardData(text: walletState.address));
@@ -87,23 +106,19 @@ class ReceiveBottomSheet extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Address copied!', style: ThemeTypo.tinyRegular),
+                    Text(
+                      t.receive.address_copied,
+                      style: ThemeTypo.smallRegularStrong.copyWith(
+                        color: BrandColors.white,
+                      ),
+                    ),
                   ],
                 ),
               );
             },
             icon: Icons.copy,
-            text: 'Copy',
+            text: t.receive.copy_button,
           ),
-          SizedBox(height: 16),
-          BrandButtons.iconButton(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icons.close,
-            text: 'Close',
-          ),
-          SizedBox(height: 24),
         ],
       ),
     );

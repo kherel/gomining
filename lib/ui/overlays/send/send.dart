@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomining_kherel/config/translations.g.dart';
 import 'package:gomining_kherel/logic/cubits/balance/balance_cubit.dart';
 import 'package:gomining_kherel/logic/cubits/wallet/wallet_cubit.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/theme/brand_typo.dart';
+import 'package:gomining_kherel/ui/utils/text_input.dart';
 import 'package:gomining_kherel/ui/widgets/brand_bottom_sheet/brand_bottom_sheet.dart';
 import 'package:gomining_kherel/ui/widgets/brand_buttons/brand_buttons.dart';
 import 'package:btc_address_validate_swan/btc_address_validate_swan.dart'
@@ -37,6 +39,7 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
   final _formKey = GlobalKey<FormState>();
   final _addressController = TextEditingController();
   final _amountController = TextEditingController();
+  final _amountFocusNode = FocusNode();
 
   String? _addressError;
   String? _amountError;
@@ -45,23 +48,24 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
   void dispose() {
     _addressController.dispose();
     _amountController.dispose();
+    _amountFocusNode.dispose();
     super.dispose();
   }
 
   String? _validateAddress(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Адрес не может быть пустым';
+      return t.send.errors.address_empty;
     }
 
     try {
       btc_validate.validate(value);
     } catch (e) {
-      return 'Неверный формат BTC адреса';
+      return t.send.errors.invalid_address;
     }
 
     final walletState = context.read<WalletCubit>().state;
     if (walletState is WalletAuthenticated && value == walletState.address) {
-      return 'Нельзя отправить самому себе';
+      return t.send.errors.self_send;
     }
 
     return null;
@@ -69,18 +73,18 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
 
   String? _validateAmount(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Сумма не может быть пустой';
+      return t.send.errors.amount_empty;
     }
 
     final amount = double.tryParse(value);
     if (amount == null || amount <= 0) {
-      return 'Введите корректную сумму';
+      return t.send.errors.invalid_amount;
     }
 
     final balanceState = context.read<BalanceCubit>().state;
     if (balanceState is BalanceLoaded) {
       if (amount > balanceState.balance.totalBtc) {
-        return 'Недостаточно средств.';
+        return t.send.errors.insufficient_funds;
       }
     }
 
@@ -110,14 +114,13 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Отправить BTC',
+              t.send.title,
               style: ThemeTypo.heading2Bold.copyWith(color: BrandColors.white),
             ),
             const SizedBox(height: 32),
 
-            // Address field
             Text(
-              'Адрес получателя',
+              t.send.recipient_address,
               style: ThemeTypo.smallRegularStrong.copyWith(
                 color: BrandColors.white,
               ),
@@ -129,7 +132,7 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
                 color: BrandColors.white,
               ),
               decoration: InputDecoration(
-                hintText: 'Введите BTC адрес',
+                hintText: t.send.address_hint,
                 hintStyle: ThemeTypo.smallRegularWeak.copyWith(
                   color: BrandColors.textWeak,
                 ),
@@ -154,9 +157,8 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
             ),
             const SizedBox(height: 24),
 
-            // Amount field
             Text(
-              'Сумма (BTC)',
+              t.send.amount,
               style: ThemeTypo.smallRegularStrong.copyWith(
                 color: BrandColors.white,
               ),
@@ -164,12 +166,13 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
             const SizedBox(height: 8),
             TextFormField(
               controller: _amountController,
+              focusNode: _amountFocusNode,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               style: ThemeTypo.smallRegularStrong.copyWith(
                 color: BrandColors.white,
               ),
               decoration: InputDecoration(
-                hintText: '0.00000000',
+                hintText: t.send.amount_hint,
                 hintStyle: ThemeTypo.smallRegularWeak.copyWith(
                   color: BrandColors.textWeak,
                 ),
@@ -188,26 +191,56 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
                 ),
               ),
               onChanged: (value) {
+                formatTextInputValue(_amountController, value, 8);
+
                 if (_amountError != null) {
                   setState(() {
-                    _amountError = _validateAmount(value);
+                    _amountError = _validateAmount(_amountController.text);
                   });
                 }
+              },
+              onTap: () {
+                if (_amountController.text == '0' ||
+                    _amountController.text == '0.0' ||
+                    _amountController.text == '0,0') {
+                  _amountController.clear();
+                }
+              },
+              onEditingComplete: () {
+                if (_amountController.text.isEmpty) {
+                  _amountController.text = '0.0';
+                } else {
+                  var text = _amountController.text;
+
+                  if (text.endsWith('.') || text.endsWith(',')) {
+                    text = text.substring(0, text.length - 1);
+                  }
+
+                  if (text.isEmpty) {
+                    _amountController.text = '0.0';
+                  } else {
+                    final formatted = double.parse(text).toString();
+                    _amountController.text = formatted;
+                  }
+                }
+                _amountFocusNode.unfocus();
               },
             ),
             const SizedBox(height: 8),
             Text(
-              'Доступно: ${balanceState.balance.totalBtc.toStringAsFixed(8)} BTC',
+              t.send.available.replaceAll(
+                '{amount}',
+                balanceState.balance.totalBtc.toStringAsFixed(8),
+              ),
               style: ThemeTypo.tinyRegular.copyWith(
                 color: BrandColors.textWeak,
               ),
             ),
-            const SizedBox(height: 32),
+            const Spacer(),
 
-            // Send button
             BrandButtons.iconButton(
               onTap: _onSendPressed,
-              text: 'Отправить',
+              text: t.send.send_button,
               icon: Icons.send,
             ),
           ],

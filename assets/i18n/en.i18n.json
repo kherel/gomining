@@ -4,8 +4,53 @@
   "languages": {
     "ru": "Russian",
     "en": "English"
+  },
+  "app": {
+    "title": "Gomining Wallet"
+  },
+  "send": {
+    "title": "Send BTC",
+    "recipient_address": "Recipient Address",
+    "address_hint": "Enter BTC address",
+    "amount": "Amount (BTC)",
+    "amount_hint": "Amount",
+    "available": "Available: {amount} BTC",
+    "send_button": "Send",
+    "errors": {
+      "address_empty": "Address cannot be empty",
+      "invalid_address": "Invalid BTC address format",
+      "self_send": "Cannot send to yourself",
+      "amount_empty": "Amount cannot be empty",
+      "invalid_amount": "Enter a valid amount",
+      "insufficient_funds": "Insufficient funds."
+    }
+  },
+  "receive": {
+    "title": "Receive BTC",
+    "scan_qr": "Scan QR code to receive",
+    "wallet_address": "Wallet Address",
+    "copy_button": "Copy",
+    "address_copied": "Address copied!"
+  },
+  "bottom_bar": {
+    "receive": "Receive",
+    "send": "Send"
+  },
+  "home": {
+    "total_amount": "Total Amount"
+  },
+  "transactions": {
+    "received": "Received",
+    "sent": "Sent",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "time_ago": {
+      "days": "{days} days ago",
+      "hours": "{hours} hours ago",
+      "minutes": "{minutes} minutes ago",
+      "just_now": "Just now"
+    }
   }
-  
 }   
 
 

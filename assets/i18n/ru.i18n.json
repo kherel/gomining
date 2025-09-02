@@ -4,6 +4,52 @@
   "languages": {
     "ru": "Русский",
     "en": "Английский"
+  },
+  "app": {
+    "title": "Gomining Wallet"
+  },
+  "send": {
+    "title": "Отправить BTC",
+    "recipient_address": "Адрес получателя",
+    "address_hint": "Введите BTC адрес",
+    "amount": "Сумма (BTC)",
+    "amount_hint": "Сумма",
+    "available": "Доступно: {amount} BTC",
+    "send_button": "Отправить",
+    "errors": {
+      "address_empty": "Адрес не может быть пустым",
+      "invalid_address": "Неверный формат BTC адреса",
+      "self_send": "Нельзя отправить самому себе",
+      "amount_empty": "Сумма не может быть пустой",
+      "invalid_amount": "Введите корректную сумму",
+      "insufficient_funds": "Недостаточно средств."
+    }
+  },
+  "receive": {
+    "title": "Получить BTC",
+    "scan_qr": "Отсканируйте QR-код для получения",
+    "wallet_address": "Адрес кошелька",
+    "copy_button": "Копировать",
+    "address_copied": "Адрес скопирован!"
+  },
+  "bottom_bar": {
+    "receive": "Получить",
+    "send": "Отправить"
+  },
+  "home": {
+    "total_amount": "Общая сумма"
+  },
+  "transactions": {
+    "received": "Получено",
+    "sent": "Отправлено",
+    "confirmed": "Подтверждено",
+    "pending": "Ожидает",
+    "time_ago": {
+      "days": "{days} дн. назад",
+      "hours": "{hours} ч. назад",
+      "minutes": "{minutes} мин. назад",
+      "just_now": "Только что"
+    }
   }
 } 
 

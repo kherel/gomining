@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomining_kherel/config/translations.g.dart';
 import 'package:gomining_kherel/logic/models/transaction.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/theme/brand_typo.dart';
@@ -19,7 +20,6 @@ class TransactionItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Иконка типа транзакции
           Container(
             width: 40,
             height: 40,
@@ -41,7 +41,6 @@ class TransactionItem extends StatelessWidget {
           ),
           const SizedBox(width: 12),
 
-          // Основная информация
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +48,9 @@ class TransactionItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      transaction.isIncoming ? 'Получено' : 'Отправлено',
+                      transaction.isIncoming
+                          ? t.transactions.received
+                          : t.transactions.sent,
                       style: ThemeTypo.smallBoldStrong,
                     ),
                     const Spacer(),
@@ -83,7 +84,9 @@ class TransactionItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        transaction.confirmed ? 'Подтверждено' : 'Ожидает',
+                        transaction.confirmed
+                            ? t.transactions.confirmed
+                            : t.transactions.pending,
                         style: ThemeTypo.tinyRegular.copyWith(
                           color: transaction.confirmed
                               ? BrandColors.green
@@ -118,13 +121,22 @@ class TransactionItem extends StatelessWidget {
     final difference = now.difference(date);
 
     if (difference.inDays > 0) {
-      return '${difference.inDays} дн. назад';
+      return t.transactions.time_ago.days.replaceAll(
+        '{days}',
+        difference.inDays.toString(),
+      );
     } else if (difference.inHours > 0) {
-      return '${difference.inHours} ч. назад';
+      return t.transactions.time_ago.hours.replaceAll(
+        '{hours}',
+        difference.inHours.toString(),
+      );
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} мин. назад';
+      return t.transactions.time_ago.minutes.replaceAll(
+        '{minutes}',
+        difference.inMinutes.toString(),
+      );
     } else {
-      return 'Только что';
+      return t.transactions.time_ago.just_now;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gomining_kherel/config/translations.g.dart';
 import 'package:gomining_kherel/ui/overlays/receive/receive.dart';
 import 'package:gomining_kherel/ui/overlays/send/send.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
@@ -32,7 +33,7 @@ class BottomBar extends StatelessWidget {
                 ReceiveBottomSheet.show(context);
               },
               icon: Icons.arrow_downward,
-              text: 'Receive',
+              text: t.bottom_bar.receive,
             ),
           ),
           const SizedBox(width: 16),
@@ -42,7 +43,7 @@ class BottomBar extends StatelessWidget {
                 SendBottomSheet.show(context);
               },
               icon: Icons.arrow_upward,
-              text: 'Send',
+              text: t.bottom_bar.send,
             ),
           ),
         ],

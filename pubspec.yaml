@@ -20,8 +20,9 @@ dependencies:
   slang_flutter: ^4.8.0
   qr_flutter: ^4.1.0
   btc_address_validate_swan: ^1.2.1
-
-
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomining_kherel/config/translations.g.dart';
 import 'package:gomining_kherel/logic/cubits/balance/balance_cubit.dart';
 import 'package:gomining_kherel/ui/theme/brand_typo.dart';
 
@@ -55,7 +56,7 @@ class HomeAppBar extends SliverPersistentHeaderDelegate {
               Opacity(
                 opacity: opacityAnimationValue,
                 child: Text(
-                  'Total Amount',
+                  t.home.total_amount,
                   style: ThemeTypo.tinyRegular.copyWith(
                     color: Colors.white.withValues(alpha: 0.7),
                     fontSize: 14 * titleScale,
