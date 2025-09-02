@@ -28,4 +28,17 @@ class HistoryCubit
     final address = (targetCubit.state as WalletAuthenticated).address;
     getHistory(address);
   }
+
+  void send(double amount, String address) {
+    final transactions = (state as HistoryLoaded).transactions;
+
+    final newTransaction = TransactionModel(
+      txid: 'fake_txid',
+      confirmed: false,
+      amountSatoshi: (amount * 100000000).toInt(),
+      isIncoming: false,
+      blockTime: DateTime.now(),
+    );
+    emit(HistoryLoaded([newTransaction, ...transactions]));
+  }
 }

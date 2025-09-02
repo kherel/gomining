@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomining_kherel/logic/cubits/history/history_cubit.dart';
@@ -31,7 +32,12 @@ class HomeScreen extends StatelessWidget {
                       safeAreaTop: MediaQuery.of(context).padding.top,
                     ),
                   ),
-
+                  CupertinoSliverRefreshControl(
+                    onRefresh: () async {
+                      context.read<HistoryCubit>().load();
+                      await Future.delayed(const Duration(seconds: 2));
+                    },
+                  ),
                   SliverList.separated(
                     itemCount: historyState.transactions.length,
                     separatorBuilder: (context, index) =>

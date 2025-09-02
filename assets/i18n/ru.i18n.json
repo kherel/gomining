@@ -16,6 +16,10 @@
     "amount_hint": "Сумма",
     "available": "Доступно: {amount} BTC",
     "send_button": "Отправить",
+    "success": {
+      "title": "Успешно!",
+      "message": "Транзакция отправлена успешно"
+    },
     "errors": {
       "address_empty": "Адрес не может быть пустым",
       "invalid_address": "Неверный формат BTC адреса",

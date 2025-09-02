@@ -16,6 +16,10 @@
     "amount_hint": "Amount",
     "available": "Available: {amount} BTC",
     "send_button": "Send",
+    "success": {
+      "title": "Success!",
+      "message": "Transaction sent successfully"
+    },
     "errors": {
       "address_empty": "Address cannot be empty",
       "invalid_address": "Invalid BTC address format",

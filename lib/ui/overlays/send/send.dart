@@ -14,8 +14,8 @@ import 'package:btc_address_validate_swan/btc_address_validate_swan.dart'
 class SendBottomSheet extends StatefulWidget {
   const SendBottomSheet({super.key});
 
-  static void show(BuildContext context) {
-    showModalBottomSheet(
+  static Future<SendBottomSheetResult?> show(BuildContext context) async {
+    return showModalBottomSheet<SendBottomSheetResult>(
       context: context,
       isScrollControlled: true,
       isDismissible: true,
@@ -98,7 +98,11 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
     });
 
     if (_addressError == null && _amountError == null) {
-      Navigator.of(context).pop();
+      final amount = double.parse(_amountController.text);
+      final address = _addressController.text;
+      Navigator.of(
+        context,
+      ).pop(SendBottomSheetResult(amount: amount, address: address));
     }
   }
 
@@ -248,4 +252,11 @@ class _SendBottomSheetState extends State<SendBottomSheet> {
       ),
     );
   }
+}
+
+class SendBottomSheetResult {
+  final double amount;
+  final String address;
+
+  SendBottomSheetResult({required this.amount, required this.address});
 }

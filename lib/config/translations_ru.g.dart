@@ -83,6 +83,7 @@ class _TranslationsSendRu extends TranslationsSendEn {
 	@override String get amount_hint => 'Сумма';
 	@override String get available => 'Доступно: {amount} BTC';
 	@override String get send_button => 'Отправить';
+	@override late final _TranslationsSendSuccessRu success = _TranslationsSendSuccessRu._(_root);
 	@override late final _TranslationsSendErrorsRu errors = _TranslationsSendErrorsRu._(_root);
 }
 
@@ -135,6 +136,17 @@ class _TranslationsTransactionsRu extends TranslationsTransactionsEn {
 	@override late final _TranslationsTransactionsTimeAgoRu time_ago = _TranslationsTransactionsTimeAgoRu._(_root);
 }
 
+// Path: send.success
+class _TranslationsSendSuccessRu extends TranslationsSendSuccessEn {
+	_TranslationsSendSuccessRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Успешно!';
+	@override String get message => 'Транзакция отправлена успешно';
+}
+
 // Path: send.errors
 class _TranslationsSendErrorsRu extends TranslationsSendErrorsEn {
 	_TranslationsSendErrorsRu._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -179,6 +191,8 @@ extension on TranslationsRu {
 			case 'send.amount_hint': return 'Сумма';
 			case 'send.available': return 'Доступно: {amount} BTC';
 			case 'send.send_button': return 'Отправить';
+			case 'send.success.title': return 'Успешно!';
+			case 'send.success.message': return 'Транзакция отправлена успешно';
 			case 'send.errors.address_empty': return 'Адрес не может быть пустым';
 			case 'send.errors.invalid_address': return 'Неверный формат BTC адреса';
 			case 'send.errors.self_send': return 'Нельзя отправить самому себе';

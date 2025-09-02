@@ -14,6 +14,8 @@ final class HistoryLoaded extends HistoryState {
 
   const HistoryLoaded(this.transactions);
 
+
+
   @override
   List<Object> get props => [transactions];
 }

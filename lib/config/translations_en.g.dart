@@ -108,6 +108,7 @@ class TranslationsSendEn {
 	/// en: 'Send'
 	String get send_button => 'Send';
 
+	late final TranslationsSendSuccessEn success = TranslationsSendSuccessEn.internal(_root);
 	late final TranslationsSendErrorsEn errors = TranslationsSendErrorsEn.internal(_root);
 }
 
@@ -185,6 +186,21 @@ class TranslationsTransactionsEn {
 	late final TranslationsTransactionsTimeAgoEn time_ago = TranslationsTransactionsTimeAgoEn.internal(_root);
 }
 
+// Path: send.success
+class TranslationsSendSuccessEn {
+	TranslationsSendSuccessEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Success!'
+	String get title => 'Success!';
+
+	/// en: 'Transaction sent successfully'
+	String get message => 'Transaction sent successfully';
+}
+
 // Path: send.errors
 class TranslationsSendErrorsEn {
 	TranslationsSendErrorsEn.internal(this._root);
@@ -249,6 +265,8 @@ extension on Translations {
 			case 'send.amount_hint': return 'Amount';
 			case 'send.available': return 'Available: {amount} BTC';
 			case 'send.send_button': return 'Send';
+			case 'send.success.title': return 'Success!';
+			case 'send.success.message': return 'Transaction sent successfully';
 			case 'send.errors.address_empty': return 'Address cannot be empty';
 			case 'send.errors.invalid_address': return 'Invalid BTC address format';
 			case 'send.errors.self_send': return 'Cannot send to yourself';

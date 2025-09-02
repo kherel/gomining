@@ -1,11 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomining_kherel/config/translations.g.dart';
+import 'package:gomining_kherel/logic/cubits/history/history_cubit.dart';
 import 'package:gomining_kherel/ui/overlays/receive/receive.dart';
 import 'package:gomining_kherel/ui/overlays/send/send.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/widgets/brand_buttons/brand_buttons.dart';
+import 'package:gomining_kherel/ui/widgets/success_modal/success_modal.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({super.key});
@@ -39,8 +42,13 @@ class BottomBar extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: BrandButtons.iconButton(
-              onTap: () {
-                SendBottomSheet.show(context);
+              onTap: () async {
+                final cubit = context.read<HistoryCubit>();
+                final res = await SendBottomSheet.show(context);
+                if (res != null && context.mounted) {
+                  cubit.send(res.amount, res.address);
+                  SuccessModal.show(context);
+                }
               },
               icon: Icons.arrow_upward,
               text: t.bottom_bar.send,
