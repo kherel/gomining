@@ -72,7 +72,6 @@ class ReceiveBottomSheet extends StatelessWidget {
             style: ThemeTypo.tinyRegular,
           ),
           SizedBox(height: 8),
-
           Text(
             walletState.address,
             textAlign: TextAlign.center,
@@ -104,6 +103,7 @@ class ReceiveBottomSheet extends StatelessWidget {
             icon: Icons.close,
             text: 'Close',
           ),
+          SizedBox(height: 24),
         ],
       ),
     );

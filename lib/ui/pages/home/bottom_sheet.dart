@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gomining_kherel/ui/overlays/receive/receive.dart';
+import 'package:gomining_kherel/ui/overlays/send/send.dart';
 import 'package:gomining_kherel/ui/theme/brand_colors.dart';
 import 'package:gomining_kherel/ui/widgets/brand_buttons/brand_buttons.dart';
 
@@ -37,7 +38,9 @@ class BottomBar extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: BrandButtons.iconButton(
-              onTap: () {},
+              onTap: () {
+                SendBottomSheet.show(context);
+              },
               icon: Icons.arrow_upward,
               text: 'Send',
             ),
